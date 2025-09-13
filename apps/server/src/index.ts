@@ -5,6 +5,7 @@ const scrambleRouter = require('./api/scramble-simple.js');
 import { solveRouter } from './api/solve';
 import { verifyRouter } from './api/verify';
 import { scoreRouter } from './api/score';
+import { resultsRouter } from './api/results';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use('/api/scramble', scrambleRouter);
 app.use('/api/solve', solveRouter);
 app.use('/api/verify', verifyRouter);
 app.use('/api/score', scoreRouter);
+app.use('/api/results', resultsRouter);
 
 // Health check
 app.get('/health', (req, res) => {

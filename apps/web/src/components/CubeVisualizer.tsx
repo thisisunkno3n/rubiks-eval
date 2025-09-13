@@ -36,7 +36,7 @@ const CubeVisualizer: React.FC<CubeVisualizerProps> = ({ scramble = "" }) => {
       <div className="visualization-container">
         <twisty-player
           ref={playerRef}
-          puzzle="3x3x3"
+          puzzle="2x2x2"
           alg={scramble}
           background="none"
           control-panel="none"

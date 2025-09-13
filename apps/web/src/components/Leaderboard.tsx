@@ -1,78 +1,34 @@
-import { useState } from 'react';
-import { TestResult, LeaderboardProps } from '../types';
+import { useState, useEffect } from 'react';
+import { TestResult } from '../types';
 import LeaderboardChart from './LeaderboardChart';
 
-const Leaderboard: React.FC<LeaderboardProps> = ({ results = [] }) => {
+const Leaderboard: React.FC = () => {
+    const [results, setResults] = useState<TestResult[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [sortField, setSortField] = useState<keyof TestResult>('timestamp');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
-  
-  // Mock data - in a real app, this would come from props
-  const mockResults: TestResult[] = [
-    {
-      id: '1',
-      model: 'Cohere',
-      timestamp: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
-      scramble: 'R U R\' U\' R\' F R2 U\' R\' U\' R U R\' F\'',
-      solution: 'U R U R\' U R U2 R\'',
-      isSolved: true,
-      solveTime: 1200, // ms
-      moveCount: 7
-    },
-    {
-      id: '2',
-      model: 'Gemini',
-      timestamp: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
-      scramble: 'F R U R\' U\' F\' f R U R\' U\' f\'',
-      solution: 'U R U R\' U\' R\' F R F\'',
-      isSolved: false,
-      solveTime: 1800, // ms
-      moveCount: 9
-    },
-    {
-      id: '3',
-      model: 'Cohere',
-      timestamp: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
-      scramble: 'R U R\' U\' M\' U R U\' r\'',
-      solution: 'U R U R\' U R U2 R\'',
-      isSolved: true,
-      solveTime: 950,
-      moveCount: 6
-    },
-    {
-      id: '4',
-      model: 'Gemini',
-      timestamp: new Date(Date.now() - 90000000).toISOString(), // ~25 hours ago
-      scramble: 'F R U R\' U\' F\'',
-      solution: 'F U R U\' R\' F\'',
-      isSolved: true,
-      solveTime: 2200,
-      moveCount: 6
-    },
-    {
-      id: '5',
-      model: 'Claude',
-      timestamp: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
-      scramble: 'L U2 R\' U2 L\' U2 R',
-      solution: 'R\' U2 L U2 R U2 L\'',
-      isSolved: true,
-      solveTime: 1500,
-      moveCount: 7
-    },
-    {
-      id: '6',
-      model: 'Claude',
-      timestamp: new Date(Date.now() - 180000000).toISOString(), // ~50 hours ago
-      scramble: 'R U R\' F\' R U R\' U\' R\' F R2 U\' R\'',
-      solution: '', // Failed solve
-      isSolved: false,
-      solveTime: 3000,
-      moveCount: 12
-    },
-    ...(results || [])
-  ];
 
-  // Sort results based on selected field and direction
-  const sortedResults = [...mockResults].sort((a, b) => {
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const response = await fetch('/api/results');
+        if (!response.ok) {
+          throw new Error('Failed to fetch results');
+        }
+        const data = await response.json();
+        setResults(data);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchResults();
+  }, []);
+
+  const sortedResults = [...results].sort((a, b) => {
     const aValue = a[sortField];
     const bValue = b[sortField];
     
@@ -92,6 +48,9 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ results = [] }) => {
   };
 
   // Format timestamp for display
+    if (loading) return <div>Loading...</div>;
+  if (error) return <div className="error-message">Error: {error}</div>;
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString();
   };
@@ -103,9 +62,9 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ results = [] }) => {
       </div>
       
       <div className="charts-container" style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-        <LeaderboardChart data={mockResults} metric="Avg Solve Time (s)" />
-        <LeaderboardChart data={mockResults} metric="Avg Moves" />
-        <LeaderboardChart data={mockResults} metric="Success Rate (%)" />
+                <LeaderboardChart data={results} metric="Avg Solve Time (s)" />
+        <LeaderboardChart data={results} metric="Avg Moves" />
+        <LeaderboardChart data={results} metric="Success Rate (%)" />
       </div>
 
       <div className="leaderboard-table card">
