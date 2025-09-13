@@ -56,8 +56,27 @@ const CubeVisualizer: React.FC<CubeVisualizerProps> = ({ scramble = "" }) => {
           className="btn"
           onClick={() => {
             if (playerRef.current) {
-              playerRef.current.alg = '';
-              playerRef.current.alg = scramble;
+              // Try multiple approaches to reset the view
+              try {
+                // Method 1: Reset to solved state
+                playerRef.current.alg = '';
+                
+                // Method 2: Force re-render by temporarily changing puzzle
+                const originalPuzzle = playerRef.current.puzzle;
+                playerRef.current.puzzle = '2x2x2';
+                setTimeout(() => {
+                  if (playerRef.current) {
+                    playerRef.current.puzzle = originalPuzzle;
+                    playerRef.current.alg = scramble;
+                  }
+                }, 50);
+              } catch (error) {
+                console.error('Error resetting cube view:', error);
+                // Fallback: just reset the algorithm
+                if (playerRef.current) {
+                  playerRef.current.alg = scramble;
+                }
+              }
             }
           }}
         >

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { scrambleRouter } from './api/scramble';
+const scrambleRouter = require('./api/scramble-simple.js');
 import { solveRouter } from './api/solve';
 import { verifyRouter } from './api/verify';
 import { scoreRouter } from './api/score';

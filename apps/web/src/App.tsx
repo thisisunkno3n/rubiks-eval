@@ -17,16 +17,22 @@ function App() {
   const generateScramble = async () => {
     setLoading(true)
     try {
-      // This will be replaced with actual API call
-      // const response = await fetch('/api/scramble');
-      // const data = await response.json();
-      // setScramble(data.scramble);
+      const response = await fetch('/api/scramble?length=10');
+      const data = await response.json();
       
-      // Mock response for now
-      const mockScramble = "R U' F2 R' U F' R U R' U' F2 U R";
-      setScramble(mockScramble);
+      if (data.error) {
+        console.error('Backend error:', data.error);
+        // Fallback to mock if backend fails
+        const mockScramble = "R U' F2 R' U F' R U R' U' F2 U R";
+        setScramble(mockScramble);
+      } else {
+        setScramble(data.scramble);
+      }
     } catch (error) {
       console.error('Failed to generate scramble:', error);
+      // Fallback to mock if network fails
+      const mockScramble = "R U' F2 R' U F' R U R' U' F2 U R";
+      setScramble(mockScramble);
     } finally {
       setLoading(false);
     }

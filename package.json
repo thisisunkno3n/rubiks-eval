@@ -17,5 +17,8 @@
   },
   "workspaces": [
     "apps/*"
-  ]
+  ],
+  "dependencies": {
+    "recharts": "^3.2.0"
+  }
 }
