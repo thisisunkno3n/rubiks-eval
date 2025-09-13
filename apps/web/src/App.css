@@ -1,0 +1,72 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.App-header {
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.scramble-section {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+button:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
+.scramble-display {
+  margin-top: 1rem;
+}
+
+.scramble-display h3 {
+  margin-bottom: 0.5rem;
+  color: #FFD700;
+}
+
+.scramble-display code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-family: 'Courier New', monospace;
+  display: block;
+  word-break: break-all;
+}
