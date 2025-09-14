@@ -1,3 +1,5 @@
+import { parseMoves } from './notation';
+
 // Simple 2x2 Rubik's Cube representation
 export interface CubeState {
   corners: number[]; // 8 corners, each with position and orientation
@@ -92,4 +94,29 @@ export function getRandomScramble(length: number = 10): Move[] {
   }
   
   return scramble;
+}
+
+export function validateSolution(scrambleMoves: Move[], solutionMoves: Move[]): boolean {
+  // Start with a solved cube
+  let cube = createCube();
+  
+  // Apply the scramble
+  cube = scrambleCube(cube, scrambleMoves);
+  
+  // Apply the solution
+  cube = scrambleCube(cube, solutionMoves);
+  
+  // Check if the cube is solved
+  return isSolved(cube);
+}
+
+export function validateSolutionFromNotation(scramble: string, solution: string): boolean {
+  const scrambleMoves = parseMoves(scramble);
+  const solutionMoves = parseMoves(solution);
+  
+  if (scrambleMoves.length === 0 || solutionMoves.length === 0) {
+    return false;
+  }
+  
+  return validateSolution(scrambleMoves, solutionMoves);
 }
