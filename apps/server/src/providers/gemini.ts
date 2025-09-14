@@ -1,8 +1,11 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { validateMoves } from '../core/notation';
 
 export interface LLMResponse {
   content: string;
   latency: number;
+  isValid: boolean;
+  moveCount: number;
 }
 
 export class GeminiProvider {
@@ -11,7 +14,13 @@ export class GeminiProvider {
   
   constructor(apiKey: string) {
     this.genAI = new GoogleGenerativeAI(apiKey);
-    this.model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
+    this.model = this.genAI.getGenerativeModel({ 
+      model: 'gemini-2.0-flash',
+      generationConfig: {
+        maxOutputTokens: 100,
+        temperature: 0.1,
+      },
+    });
   }
   
   async solveCube(scramble: string): Promise<LLMResponse> {
@@ -29,12 +38,28 @@ Rules:
 Return only the solution moves.`;
     
     try {
-      const result = await this.model.generateContent(`${systemPrompt}\n\n${userPrompt}`);
+      const result = await Promise.race([
+        this.model.generateContent({
+          contents: [
+            { role: 'user', parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] },
+          ],
+        }),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Request timeout after 30s')), 30000)
+        )
+      ]) as any;
+      
       const response = await result.response;
       const content = response.text().trim();
       const latency = Date.now() - startTime;
-      
-      return { content, latency };
+      const validation = validateMoves(content);
+
+      return { 
+        content, 
+        latency, 
+        isValid: validation.valid, 
+        moveCount: validation.moves.length 
+      };
     } catch (error) {
       console.error('Gemini API error:', error);
       throw new Error('Failed to get response from Gemini');
@@ -60,12 +85,28 @@ Prefer these exact sequences when possible.`;
 Return only the solution moves.`;
     
     try {
-      const result = await this.model.generateContent(`${systemPrompt}\n\n${userPrompt}`);
+      const result = await Promise.race([
+        this.model.generateContent({
+          contents: [
+            { role: 'user', parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] },
+          ],
+        }),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Request timeout after 30s')), 30000)
+        )
+      ]) as any;
+      
       const response = await result.response;
       const content = response.text().trim();
       const latency = Date.now() - startTime;
-      
-      return { content, latency };
+      const validation = validateMoves(content);
+
+      return { 
+        content, 
+        latency, 
+        isValid: validation.valid, 
+        moveCount: validation.moves.length 
+      };
     } catch (error) {
       console.error('Gemini API error:', error);
       throw new Error('Failed to get response from Gemini');

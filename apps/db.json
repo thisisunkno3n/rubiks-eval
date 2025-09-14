@@ -1,0 +1,142 @@
+[
+  {
+    "id": "cohere-1757811265498",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:54:25.498Z",
+    "scramble": "R2 R D' F2 F U B R L2 B2",
+    "solution": "U' F D R' F' L B' U R U2 F2 L' B2",
+    "isSolved": false,
+    "solveTime": 409,
+    "moveCount": 13
+  },
+  {
+    "id": "cohere-1757811352914",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:55:52.914Z",
+    "scramble": "B' R' L' F2 B L2 L D B R'",
+    "solution": "U' F R' B' F' U B F R L' B' L2 F2",
+    "isSolved": false,
+    "solveTime": 555,
+    "moveCount": 13
+  },
+  {
+    "id": "cohere-1757811353937",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:55:53.937Z",
+    "scramble": "R F R U2 F' B L D F' U2",
+    "solution": "U' F R' U F' B' L' U2 F R U' F' U2 L",
+    "isSolved": false,
+    "solveTime": 617,
+    "moveCount": 14
+  },
+  {
+    "id": "cohere-1757811354622",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:55:54.622Z",
+    "scramble": "B R2 D2 F2 D2 D' B D' R B",
+    "solution": "U' F U' F' R' U F R U' F' U F U2 R' U' F U2 R",
+    "isSolved": false,
+    "solveTime": 498,
+    "moveCount": 18
+  },
+  {
+    "id": "cohere-1757811355164",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:55:55.164Z",
+    "scramble": "F2 R2 F D D' U F' U2 D' F2",
+    "solution": "U' F D R F' U2 R' U F R' F2 U' D'",
+    "isSolved": false,
+    "solveTime": 346,
+    "moveCount": 13
+  },
+  {
+    "id": "cohere-1757811356022",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:55:56.022Z",
+    "scramble": "F2 F2 R L' L2 R R B D R'",
+    "solution": "U' F U B' D' F' D F D2 R U R' U' F2 R' F R U2",
+    "isSolved": false,
+    "solveTime": 530,
+    "moveCount": 18
+  },
+  {
+    "id": "cohere-1757811497770",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:58:17.770Z",
+    "scramble": "F R' U' D' B' D U B' R F",
+    "solution": "U' F' R U F B' D' U' R' F",
+    "isSolved": false,
+    "solveTime": 383,
+    "moveCount": 10
+  },
+  {
+    "id": "cohere-1757811540220",
+    "model": "cohere",
+    "timestamp": "2025-09-14T00:59:00.220Z",
+    "scramble": "F B' R2 F' F2 B2 F2 R2 F2 D2",
+    "solution": "U' F U' F' R U F R' U' F' U2 F2 R' F U' B' U F2",
+    "isSolved": false,
+    "solveTime": 582,
+    "moveCount": 18
+  },
+  {
+    "id": "cohere-1757811663302",
+    "model": "cohere",
+    "timestamp": "2025-09-14T01:01:03.302Z",
+    "scramble": "R D L' F U F R2 U2 B D'",
+    "solution": "U' F' L D R F2 U' L' F2 U B' D R' F",
+    "isSolved": false,
+    "solveTime": 446,
+    "moveCount": 14
+  },
+  {
+    "id": "cohere-1757811690970",
+    "model": "cohere",
+    "timestamp": "2025-09-14T01:01:30.970Z",
+    "scramble": "L2 R2 F' R L2 B L' R B2 U'",
+    "solution": "U L' B R2 L B' R' U2 F2 L2 B2",
+    "isSolved": false,
+    "solveTime": 503,
+    "moveCount": 11
+  },
+  {
+    "id": "gemini-1757811693536",
+    "model": "gemini",
+    "timestamp": "2025-09-14T01:01:33.536Z",
+    "scramble": "L2 R2 F' R L2 B L' R B2 U'",
+    "solution": "R U' B' R2 F R' B L2 R' U R2 B2 L'",
+    "isSolved": false,
+    "solveTime": 2545,
+    "moveCount": 13
+  },
+  {
+    "id": "cohere-1757811709617",
+    "model": "cohere",
+    "timestamp": "2025-09-14T01:01:49.617Z",
+    "scramble": "B2 F F' R' L' D D D2 B2 F'",
+    "solution": "U' F D' L F' U B' D F D2 U' L' F2",
+    "isSolved": false,
+    "solveTime": 426,
+    "moveCount": 13
+  },
+  {
+    "id": "cohere-1757811754158",
+    "model": "cohere",
+    "timestamp": "2025-09-14T01:02:34.158Z",
+    "scramble": "R L2 B2 L2 L2 B' L' F2 F' R2",
+    "solution": "U' L' U L B' U' F U2 L2 F2 B2",
+    "isSolved": false,
+    "solveTime": 542,
+    "moveCount": 11
+  },
+  {
+    "id": "gemini-1757811754964",
+    "model": "gemini",
+    "timestamp": "2025-09-14T01:02:34.964Z",
+    "scramble": "R L2 B2 L2 L2 B' L' F2 F' R2",
+    "solution": "F2 B2 R2 F' B L2 L2 B2 L2 R2 F2",
+    "isSolved": false,
+    "solveTime": 789,
+    "moveCount": 11
+  }
+]

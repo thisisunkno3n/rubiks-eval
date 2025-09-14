@@ -1,8 +1,11 @@
 import { CohereClient } from 'cohere-ai';
+import { validateMoves } from '../core/notation';
 
 export interface LLMResponse {
   content: string;
   latency: number;
+  isValid: boolean;
+  moveCount: number;
 }
 
 export class CohereProvider {
@@ -29,18 +32,20 @@ Rules:
 Return only the solution moves.`;
     
     try {
-      const response = await this.client.generate({
-        model: 'command',
-        prompt: `${systemPrompt}\n\n${userPrompt}`,
-        max_tokens: 100,
+      const response = await this.client.chat({
+        model: 'command-r',
+        message: userPrompt,
+        preamble: systemPrompt,
+        maxTokens: 100,
         temperature: 0.1,
-        stop_sequences: ['\n\n']
+        k: 1
       });
       
       const latency = Date.now() - startTime;
-      const content = response.generations[0]?.text?.trim() || '';
+      const content = response.text.trim();
+      const validation = validateMoves(content);
       
-      return { content, latency };
+      return { content, latency, isValid: validation.valid, moveCount: validation.moves.length };
     } catch (error) {
       console.error('Cohere API error:', error);
       throw new Error('Failed to get response from Cohere');
@@ -66,18 +71,20 @@ Prefer these exact sequences when possible.`;
 Return only the solution moves.`;
     
     try {
-      const response = await this.client.generate({
-        model: 'command',
-        prompt: `${systemPrompt}\n\n${userPrompt}`,
-        max_tokens: 100,
+      const response = await this.client.chat({
+        model: 'command-r',
+        message: userPrompt,
+        preamble: systemPrompt,
+        maxTokens: 100,
         temperature: 0.1,
-        stop_sequences: ['\n\n']
+        k: 1
       });
       
       const latency = Date.now() - startTime;
-      const content = response.generations[0]?.text?.trim() || '';
+      const content = response.text.trim();
+      const validation = validateMoves(content);
       
-      return { content, latency };
+      return { content, latency, isValid: validation.valid, moveCount: validation.moves.length };
     } catch (error) {
       console.error('Cohere API error:', error);
       throw new Error('Failed to get response from Cohere');
